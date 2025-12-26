@@ -32,9 +32,6 @@ export default function Header(){
       }
     }
 
-    // Close mobile menu on route change
-    setIsMobileMenuOpen(false)
-
     if (isMobileMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside)
     }
@@ -42,7 +39,12 @@ export default function Header(){
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [pathname, isMobileMenuOpen])
+  }, [isMobileMenuOpen])
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname])
 
   // Dynamic menu items based on auth state
   const menuItems: Array<{key: string, href: string} | {key: string, action: () => void, isButton: true}> = [
