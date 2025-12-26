@@ -1,16 +1,16 @@
 import { getTranslations } from 'next-intl/server'
 
 export default async function AboutPage({ params }: { params: { locale: string } }){
-  const t = await getTranslations({ locale: params.locale })
+  const t = await getTranslations({ locale: params.locale, namespaces: ['common'] })
 
   return (
     <div className="min-h-screen section-gradient py-20">
       <div className="container mx-auto px-6">
         {/* Hero Section */}
         <div className="text-center mb-20">
-          <h1 className="text-4xl md:text-6xl font-bold text-gradient mb-6">{t('AboutGiorBaliTour') as string}</h1>
+          <h1 className="text-4xl md:text-6xl font-bold text-gradient mb-6">{t('AboutGiorBaliTour')}</h1>
           <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
-            {t('AboutDescription') as string}
+            {t('AboutDescription')}
           </p>
         </div>
 
@@ -18,13 +18,13 @@ export default async function AboutPage({ params }: { params: { locale: string }
         <section className="mb-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="fade-in">
-              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">{t('OurStory') as string}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">{t('OurStory')}</h2>
               <div className="space-y-4 text-secondary leading-relaxed">
                 <p>
-                  {t('OurStoryText1') as string}
+                  {t('OurStoryText1')}
                 </p>
                 <p>
-                  {t('OurStoryText2') as string}
+                  {t('OurStoryText2')}
                 </p>
               </div>
             </div>
@@ -35,20 +35,20 @@ export default async function AboutPage({ params }: { params: { locale: string }
                 <div className="relative z-10">
                   <div className="grid grid-cols-2 gap-6">
                     <div className="text-center" suppressHydrationWarning>
-                      <div className="text-4xl font-bold text-gradient mb-2">{t('FiveHundredPlusClients') as string}</div>
-                      <p className="text-secondary text-sm">{t('HappyClients') as string}</p>
+                      <div className="text-4xl font-bold text-gradient mb-2">{t('FiveHundredPlusClients')}</div>
+                      <p className="text-secondary text-sm">{t('HappyClients')}</p>
                     </div>
                     <div className="text-center" suppressHydrationWarning>
-                      <div className="text-4xl font-bold text-gradient mb-2">{t('TenPlusExperience') as string}</div>
-                      <p className="text-secondary text-sm">{t('YearsExperience') as string}</p>
+                      <div className="text-4xl font-bold text-gradient mb-2">{t('TenPlusExperience')}</div>
+                      <p className="text-secondary text-sm">{t('YearsExperience')}</p>
                     </div>
                     <div className="text-center" suppressHydrationWarning>
-                      <div className="text-4xl font-bold text-gradient mb-2">{t('FiftyPlusDestinations') as string}</div>
-                      <p className="text-secondary text-sm">{t('TouristDestinations') as string}</p>
+                      <div className="text-4xl font-bold text-gradient mb-2">{t('FiftyPlusDestinations')}</div>
+                      <p className="text-secondary text-sm">{t('TouristDestinations')}</p>
                     </div>
                     <div className="text-center" suppressHydrationWarning>
-                      <div className="text-4xl font-bold text-gradient mb-2">{t('TwentyFourSeven') as string}</div>
-                      <p className="text-secondary text-sm">{t('SupportAvailable') as string}</p>
+                      <div className="text-4xl font-bold text-gradient mb-2">{t('TwentyFourSeven')}</div>
+                      <p className="text-secondary text-sm">{t('SupportAvailable')}</p>
                     </div>
                   </div>
                 </div>
@@ -60,9 +60,9 @@ export default async function AboutPage({ params }: { params: { locale: string }
         {/* Why Choose Us Section */}
         <section className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-4">{t('WhyChooseGiorBaliTour') as string}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-4">{t('WhyChooseGiorBaliTour')}</h2>
             <p className="text-secondary text-lg max-w-2xl mx-auto">
-              {t('WhyChooseDescription') as string}
+              {t('WhyChooseDescription')}
             </p>
           </div>
           
@@ -141,9 +141,9 @@ export default async function AboutPage({ params }: { params: { locale: string }
           <div className="card-modern p-12 bg-gradient-to-r from-accent-green/5 to-accent-yellow/5">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-6">{t('OurMission') as string}</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-6">{t('OurMission')}</h2>
                 <p className="text-secondary leading-relaxed mb-6">
-                  {t('OurMissionText') as string}
+                  {t('OurMissionText')}
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
@@ -152,7 +152,7 @@ export default async function AboutPage({ params }: { params: { locale: string }
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <p className="text-secondary">{t('SafetyFirst') as string}</p>
+                    <p className="text-secondary">{t('SafetyFirst')}</p>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-6 h-6 bg-accent-green rounded-full flex items-center justify-center flex-shrink-0 mt-1">
@@ -160,7 +160,7 @@ export default async function AboutPage({ params }: { params: { locale: string }
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <p className="text-secondary">{t('AuthenticExperiences') as string}</p>
+                    <p className="text-secondary">{t('AuthenticExperiences')}</p>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-6 h-6 bg-accent-green rounded-full flex items-center justify-center flex-shrink-0 mt-1">
@@ -168,7 +168,7 @@ export default async function AboutPage({ params }: { params: { locale: string }
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <p className="text-secondary">{t('SustainableTourism') as string}</p>
+                    <p className="text-secondary">{t('SustainableTourism')}</p>
                   </div>
                 </div>
               </div>
@@ -180,7 +180,7 @@ export default async function AboutPage({ params }: { params: { locale: string }
                   </svg>
                 </div>
                 <p className="text-secondary italic">
-                  "{t('QuoteText' as string}"
+                  "{t('QuoteText')}"
                 </p>
               </div>
             </div>
@@ -190,9 +190,9 @@ export default async function AboutPage({ params }: { params: { locale: string }
         {/* Team Section */}
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-4">{t('MeetOurTeam') as string}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-4">{t('MeetOurTeam')}</h2>
             <p className="text-secondary text-lg max-w-2xl mx-auto">
-              {t('TeamDescription') as string}
+              {t('TeamDescription')}
             </p>
           </div>
           
@@ -238,13 +238,13 @@ export default async function AboutPage({ params }: { params: { locale: string }
                 <div className="border-t border-dark pt-4 mt-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="text-secondary mb-1">{t('Languages') as string}: {member.languages.join(', ')}</p>
-                      <p className="text-secondary mb-1">{t('Specialties') as string}: {member.specialties.join(', ')}</p>
+                      <p className="text-secondary mb-1">{t('Languages')}: {member.languages.join(', ')}</p>
+                      <p className="text-secondary mb-1">{t('Specialties')}: {member.specialties.join(', ')}</p>
                     </div>
                   </div>
                   
                   <div className="border-t border-dark pt-4 mt-4">
-                    <h4 className="text-lg font-semibold text-primary mb-3">{t('KeyAchievements') as string}</h4>
+                    <h4 className="text-lg font-semibold text-primary mb-3">{t('KeyAchievements')}</h4>
                     <div className="space-y-2">
                       {member.achievements.map((achievement, idx) => (
                         <div key={idx} className="flex items-start space-x-2">
