@@ -8,7 +8,7 @@ export default async function AboutPage({ params }: { params: { locale: string }
       <div className="container mx-auto px-6">
         {/* Hero Section */}
         <div className="text-center mb-20">
-          <h1 className="text-4xl md:text-6xl font-bold text-gradient mb-6">{t('AboutGiorBaliTour')}</h1>
+          <h1 className="text-4xl md:text-6xl font-bold text-gradient mb-6">{t('AboutGiorBaliTour') as string}</h1>
           <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
             {t('AboutDescription')}
           </p>
@@ -180,7 +180,7 @@ export default async function AboutPage({ params }: { params: { locale: string }
                   </svg>
                 </div>
                 <p className="text-secondary italic">
-                  "{t('QuoteText')}"
+                  "{t('QuoteText' as string}"
                 </p>
               </div>
             </div>
