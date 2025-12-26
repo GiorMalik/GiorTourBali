@@ -1,4 +1,4 @@
-"use client"
+'''"use client"
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
@@ -88,10 +88,10 @@ export default function Header(){
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               {[...menuItems, ...(logoutItem ? [logoutItem] : [])].map((item) => (
-                item.isButton ? (
+                'isButton' in item ? (
                   <button
                     key={item.key}
-                    onClick={item.action}
+                    onClick={(item as any).action}
                     className="flex items-center space-x-2 px-4 py-2 bg-red-500/10 border border-red-500/30 rounded-xl hover:bg-red-500/20 transition-all duration-300"
                   >
                     <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@ export default function Header(){
                 ) : (
                   <Link
                     key={item.key}
-                    href={item.href}
+                    href={(item as any).href}
                     className="relative text-secondary hover:text-primary transition-colors duration-300 group"
                   >
                     {t[item.key]}
@@ -134,10 +134,10 @@ export default function Header(){
                 <nav className="p-3">
                   <div className="space-y-2">
                     {[...menuItems, ...(logoutItem ? [logoutItem] : [])].map((item, index) => (
-                      item.isButton ? (
+                      'isButton' in item ? (
                         <button
                           key={item.key}
-                          onClick={() => { item.action(); setIsMobileMenuOpen(false) }}
+                          onClick={() => { (item as any).action(); setIsMobileMenuOpen(false) }}
                           className="group/item flex items-center px-4 py-3 rounded-xl hover:bg-dark-tertiary transition-all duration-300 relative overflow-hidden w-full"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-red-500/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
@@ -151,7 +151,7 @@ export default function Header(){
                       ) : (
                         <Link
                           key={item.key}
-                          href={item.href}
+                          href={(item as any).href}
                           className="group/item flex items-center px-4 py-3 rounded-xl hover:bg-dark-tertiary transition-all duration-300 relative overflow-hidden"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
@@ -190,4 +190,4 @@ export default function Header(){
       </div>
     </header>
   )
-}
+}'''
