@@ -32,6 +32,7 @@ export default function ResetPasswordForm() {
   const searchParams = useSearchParams()
   const locale = pathname.split('/')[1] || 'en'
   const t = useTranslations()
+  const { login } = useAuth()
 
   const emailFromParam = searchParams.get('email')
 
