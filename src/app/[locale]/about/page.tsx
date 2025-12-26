@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 export default async function AboutPage({ params }: { params: { locale: string } }){
-  const t = await getTranslations({ locale: params.locale, namespaces: ['common'] })
+  const t = await getTranslations({ locale: params.locale })
 
   return (
     <div className="min-h-screen section-gradient py-20">
