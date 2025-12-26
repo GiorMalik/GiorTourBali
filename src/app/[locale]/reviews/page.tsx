@@ -35,19 +35,19 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
   
   // Language detection based on comment content
   if (languageFilter) {
-    const languagePatterns = {
-      id: /[nya|banget|yang|dan|di|ke|untuk|dari|dengan|dalam|ini|itu|yang|ada|bisa|sudah|masih|juga|saja|lagi|sangat|cukup|baik|bagus|mantap|recommended|worth|top|ga|gak|tidak|ya|dong|deh|lah|kok|sih|kan|dong|nih|nih]/,
-      en: /\b(the|and|or|but|in|on|at|to|for|of|with|by|from|up|about|into|through|during|before|after|above|below|between|among|is|am|are|was|were|be|been|being|have|has|had|do|does|did|will|would|could|should|may|might|must|can|this|that|these|those|what|which|who|when|where|why|how|all|each|every|both|few|more|most|other|some|such|no|nor|not|only|own|same|so|than|too|very|just|now|here|there|then|way|even|back|well|good|new|old|great|little|big|small|large|right|left|real|sure|clear|easy|hard|long|high|low|best|better|much|many|more|most|less|least|very|quite|rather|pretty|fairly|enough|too|so|such|how|what|when|where|why|who|which|whom|whose|whatever|whichever|whoever|whomever|whenever|wherever|however|therefore|thus|hence|consequently|accordingly|nevertheless|nonetheless|notwithstanding|although|though|even|if|unless|until|while|because|since|as|so|that|in|order|that|lest|whether|either|or|neither|nor|both|and|but|yet|still|however|nevertheless|nonetheless|notwithstanding|although|though|even|if|unless|until|while|because|since|as|so|that|in|order|that|lest|whether)\b/,
-      zh: /[\u4e00-\u9fff]/,
-      ko: /[\uac00-\ud7af]/,
-      ja: /[\u3040-\u309f\u30a0-\u30ff]/,
-      ar: /[\u0600-\u06ff]/,
-      ru: /[\u0400-\u04ff]/
+    const languagePatterns: { [key: string]: string } = {
+      id: /[nya|banget|yang|dan|di|ke|untuk|dari|dengan|dalam|ini|itu|yang|ada|bisa|sudah|masih|juga|saja|lagi|sangat|cukup|baik|bagus|mantap|recommended|worth|top|ga|gak|tidak|ya|dong|deh|lah|kok|sih|kan|dong|nih|nih]/.source,
+      en: /\b(the|and|or|but|in|on|at|to|for|of|with|by|from|up|about|into|through|during|before|after|above|below|between|among|is|am|are|was|were|be|been|being|have|has|had|do|does|did|will|would|could|should|may|might|must|can|this|that|these|those|what|which|who|when|where|why|how|all|each|every|both|few|more|most|other|some|such|no|nor|not|only|own|same|so|than|too|very|just|now|here|there|then|way|even|back|well|good|new|old|great|little|big|small|large|right|left|real|sure|clear|easy|hard|long|high|low|best|better|much|many|more|most|less|least|very|quite|rather|pretty|fairly|enough|too|so|such|how|what|when|where|why|who|which|whom|whose|whatever|whichever|whoever|whomever|whenever|wherever|however|therefore|thus|hence|consequently|accordingly|nevertheless|nonetheless|notwithstanding|although|though|even|if|unless|until|while|because|since|as|so|that|in|order|that|lest|whether|either|or|neither|nor|both|and|but|yet|still|however|nevertheless|nonetheless|notwithstanding|although|though|even|if|unless|until|while|because|since|as|so|that|in|order|that|lest|whether)\b/.source,
+      zh: /[\u4e00-\u9fff]/.source,
+      ko: /[\uac00-\ud7af]/.source,
+      ja: /[\u3040-\u309f\u30a0-\u30ff]/.source,
+      ar: /[\u0600-\u06ff]/.source,
+      ru: /[\u0400-\u04ff]/.source
     }
     
-    if (languagePatterns[languageFilter as keyof typeof languagePatterns]) {
+    if (languagePatterns[languageFilter]) {
       where.comment = {
-        contains: languagePatterns[languageFilter as keyof typeof languagePatterns].source
+        contains: languagePatterns[languageFilter]
       }
     }
   }
