@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 
 interface ReviewCardProps {
   review: {
@@ -9,17 +9,18 @@ interface ReviewCardProps {
     userName: string
     comment: string
     rating: number
-    createdAt: Date
+    createdAt: string | Date
   }
   animationDelay?: number
 }
 
 export default function ReviewCard({ review, animationDelay = 0 }: ReviewCardProps) {
   const t = useTranslations()
+  const locale = useLocale()
   const [isExpanded, setIsExpanded] = useState(false)
-  
-  const commentPreview = review.comment.length > 150 
-    ? review.comment.substring(0, 150) + '...' 
+
+  const commentPreview = review.comment.length > 150
+    ? review.comment.substring(0, 150) + '...'
     : review.comment
 
   const detectLanguage = (comment: string) => {
@@ -43,13 +44,15 @@ export default function ReviewCard({ review, animationDelay = 0 }: ReviewCardPro
     ru: '🇷🇺 Russian'
   }
 
-  const formatDate = (date: Date) => {
-    const options: Intl.DateTimeFormatOptions = { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
+  const formatDate = (date: string | Date) => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
     }
-    return new Date(date).toLocaleDateString(undefined, options)
+    // Convert to Date if it's a string, then use locale from next-intl to ensure consistency
+    const dateObj = typeof date === 'string' ? new Date(date) : date
+    return dateObj.toLocaleDateString(locale, options)
   }
 
   return (
