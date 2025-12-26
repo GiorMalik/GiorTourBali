@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
@@ -18,12 +18,10 @@ export default function RegisterPage(){
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState(false)
   const [showOTPStep, setShowOTPStep] = useState(false)
   const [otp, setOtp] = useState('')
   const [otpLoading, setOtpLoading] = useState(false)
   const [otpSuccess, setOtpSuccess] = useState(false)
-  const [generatedOTP, setGeneratedOTP] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [passwordValidation, setPasswordValidation] = useState<PasswordValidationResult>({
     isValid: false,
@@ -50,25 +48,15 @@ export default function RegisterPage(){
     setLoading(true)
     setError(null)
 
-    console.log('[Register] Attempting registration for:', email)
-
     try{
       const result = await register(email, password, name)
 
       if (result.success && result.data) {
-        console.log('[Register] Registration successful')
-        console.log('[Register] OTP:', result.data.otp)
-
-        // Show OTP step
         setShowOTPStep(true)
-        setGeneratedOTP(result.data.otp) // Store OTP for development mode
-        setSuccess(true)
       } else {
-        console.log('[Register] Registration failed:', result.message)
         setError(result.message || t('RegistrationFailed'))
       }
     }catch(err: any){
-      console.error('[Register] Error:', err)
       setError(err.message || t('AnErrorOccurred'))
     }finally{
       setLoading(false)
@@ -80,25 +68,18 @@ export default function RegisterPage(){
     setOtpLoading(true)
     setError(null)
 
-    console.log('[Register] Verifying OTP for:', email)
-
     try{
       const result = await verifyOTP(email, otp)
 
       if (result.success) {
-        console.log('[Register] OTP verification successful')
         setOtpSuccess(true)
-
-        // Redirect to home page after successful OTP verification
         setTimeout(() => {
           router.push(`/${locale}`)
-        }, 1000)
+        }, 1500)
       } else {
-        console.log('[Register] OTP verification failed:', result.message)
         setError(result.message || t('OTPVerificationFailed'))
       }
     }catch(err: any){
-      console.error('[Register] OTP Error:', err)
       setError(err.message || t('AnErrorOccurred'))
     }finally{
       setOtpLoading(false)
@@ -232,7 +213,6 @@ export default function RegisterPage(){
                     </button>
                   </div>
 
-                  {/* Password Strength Indicator */}
                   {password && (
                     <div className="mt-3 space-y-2">
                       <div className="flex items-center justify-between">
@@ -251,44 +231,6 @@ export default function RegisterPage(){
                           className={`h-full ${getStrengthColor(passwordValidation.strength)} transition-all duration-300`}
                           style={{ width: `${(passwordValidation.score / 5) * 100}%` }}
                         />
-                      </div>
-                      <div className="text-xs text-secondary space-y-1">
-                        <div className={`flex items-center space-x-2 ${password.length >= 8 ? 'text-green-400' : 'text-red-400'}`}>
-                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                          <span>{t('Minimum8Characters') as string}</span>
-                        </div>
-                        <div className={`flex items-center space-x-2 ${/[A-Z]/.test(password) ? 'text-green-400' : 'text-secondary'}`}>
-                          <svg className={`w-3 h-3 ${/[A-Z]/.test(password) ? 'text-green-400' : 'text-secondary'}`} fill="currentColor" viewBox="0 0 20 20">
-                            {/[A-Z]/.test(password) ? (
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            ) : (
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0z" clipRule="evenodd" />
-                            )}
-                          </svg>
-                          <span>{t('UppercaseLetter') as string}</span>
-                        </div>
-                        <div className={`flex items-center space-x-2 ${/[a-z]/.test(password) ? 'text-green-400' : 'text-secondary'}`}>
-                          <svg className={`w-3 h-3 ${/[a-z]/.test(password) ? 'text-green-400' : 'text-secondary'}`} fill="currentColor" viewBox="0 0 20 20">
-                            {/[a-z]/.test(password) ? (
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            ) : (
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0z" clipRule="evenodd" />
-                            )}
-                          </svg>
-                          <span>{t('LowercaseLetter') as string}</span>
-                        </div>
-                        <div className={`flex items-center space-x-2 ${/[0-9]/.test(password) ? 'text-green-400' : 'text-secondary'}`}>
-                          <svg className={`w-3 h-3 ${/[0-9]/.test(password) ? 'text-green-400' : 'text-secondary'}`} fill="currentColor" viewBox="0 0 20 20">
-                            {/[0-9]/.test(password) ? (
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            ) : (
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0z" clipRule="evenodd" />
-                            )}
-                          </svg>
-                          <span>{t('PasswordNumber') as string}</span>
-                        </div>
                       </div>
                     </div>
                   )}
@@ -345,24 +287,9 @@ export default function RegisterPage(){
                 </div>
               ) : (
                 <>
-                  {/* Development Mode - Show OTP */}
-                  <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707M9 12l2 2 4-4m-5.618-4.016A11.955 11.955 0 0117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                        </svg>
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-blue-400 font-medium mb-1">{t('DevelopmentMode') as string}</p>
-                        <p className="text-blue-300 text-xs mb-2">{t('OTPSentTo') as string} {email}</p>
-                        <div className="bg-dark-tertiary p-3 rounded-lg">
-                          <p className="text-xs text-secondary mb-1">{t('YourOTPCode') as string}</p>
-                          <p className="text-2xl font-mono font-bold text-primary tracking-wider">{generatedOTP}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <p className="text-center text-secondary mb-6">
+                    {t('OTPSentTo') as string} <span className="font-medium text-primary">{email}</span>.
+                  </p>
 
                   {error && (
                     <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
@@ -461,34 +388,26 @@ function validatePassword(password: string): PasswordValidationResult {
   const errors: string[] = []
   let score = 0
 
-  // Minimum 8 characters (wajib)
-  if (password.length < 8) {
-    errors.push('Password must be at least 8 characters')
-  } else {
+  if (password.length >= 8) {
     score += 1
   }
 
-  // Check uppercase
   if (/[A-Z]/.test(password)) {
     score += 1
   }
 
-  // Check lowercase
   if (/[a-z]/.test(password)) {
     score += 1
   }
 
-  // Check number
   if (/[0-9]/.test(password)) {
     score += 1
   }
 
-  // Check special characters
   if (/[^A-Za-z0-9]/.test(password)) {
     score += 1
   }
 
-  // Determine strength
   let strength: 'weak' | 'medium' | 'strong' | 'very-strong' = 'weak'
   if (score >= 4) {
     strength = 'very-strong'
@@ -496,11 +415,8 @@ function validatePassword(password: string): PasswordValidationResult {
     strength = 'strong'
   } else if (score === 2) {
     strength = 'medium'
-  } else {
-    strength = 'weak'
   }
 
-  // Password is valid if minimum 8 characters (special characters not required)
   const isValid = password.length >= 8
 
   return {
