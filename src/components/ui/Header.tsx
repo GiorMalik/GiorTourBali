@@ -69,7 +69,7 @@ export default function Header(){
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link 
-            href="/" 
+            href={`/${locale}`}
             className="group flex items-center space-x-3"
           >
             <div className="w-10 h-10 bg-gradient-to-br from-accent-green to-accent-green-light rounded-lg flex items-center justify-center transform transition-transform group-hover:scale-110 overflow-hidden">
