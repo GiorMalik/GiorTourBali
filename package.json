@@ -21,7 +21,7 @@
     "@types/bcryptjs": "^3.0.0",
     "bcryptjs": "^3.0.3",
     "next": "14.2.35",
-    "next-intl": "^2.15.0",
+    "next-intl": "^2.9.0",
     "prisma": "^5.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
