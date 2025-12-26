@@ -1,9 +1,6 @@
-import { getRequestConfig } from 'next-intl/server'
+import {getRequestConfig} from 'next-intl/server';
 
-const locales = ['en', 'id', 'zh', 'ko', 'ar', 'tr', 'ru', 'pt']
-
-export default getRequestConfig(async ({ locale }) => {
-  return {
-    messages: (await import(`../messages/${locale}.json`)).default
-  }
-})
+export default getRequestConfig(async ({locale}) => ({
+  // This path is now relative to the root, which is safer for Vercel
+  messages: (await import(`../messages/${locale}.json`)).default
+}));
