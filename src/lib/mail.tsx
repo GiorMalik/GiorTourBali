@@ -30,8 +30,6 @@ export async function sendVerificationEmail(to: string, name:string, otp: string
       return console.error(`[Mail] Failed to send verification email to ${to}:`, error);
     }
 
-    console.log(`[Mail] Verification email sent successfully to ${to}. Message ID: ${data?.id}`);
-
   } catch (err) {
     // Handles unexpected errors during the API call.
     console.error(`[Mail] An unexpected error occurred while sending email to ${to}:`, err);

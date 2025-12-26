@@ -89,18 +89,14 @@ export function checkRateLimit(
   windowMs: number = 5 * 60 * 1000 // 5 minutes
 ): { allowed: boolean; remainingRequests: number; resetTime: number } {
   const now = Date.now()
-
-  // Get existing entry or create new one
   let entry = rateLimitStore.get(identifier)
 
-  // Reset if window has expired
   if (!entry || now > entry.resetTime) {
     entry = {
       count: 1,
       resetTime: now + windowMs
     }
     rateLimitStore.set(identifier, entry)
-    console.log(`[RateLimit] New entry for ${identifier}: count=${entry.count}, resetTime=${new Date(entry.resetTime).toISOString()}`)
     return {
       allowed: true,
       remainingRequests: maxRequests - 1,
@@ -108,14 +104,11 @@ export function checkRateLimit(
     }
   }
 
-  // Increment count
   entry.count += 1
   rateLimitStore.set(identifier, entry)
 
   const remainingRequests = Math.max(0, maxRequests - entry.count)
   const allowed = entry.count <= maxRequests
-
-  console.log(`[RateLimit] ${identifier}: count=${entry.count}/${maxRequests}, allowed=${allowed}, remaining=${remainingRequests}`)
 
   return {
     allowed,
@@ -126,18 +119,10 @@ export function checkRateLimit(
 
 export function resetRateLimit(identifier: string): void {
   rateLimitStore.delete(identifier)
-  console.log(`[RateLimit] Reset for ${identifier}`)
 }
 
 // Account Lockout
 export function calculateLockoutDuration(failedAttempts: number): number {
-  // Progressive delay:
-  // 1st attempt: 0s
-  // 2nd attempt: 30s
-  // 3rd attempt: 60s
-  // 4th attempt: 120s
-  // 5th attempt: 300s (5 minutes)
-  // 6th+ attempt: 900s (15 minutes)
   const delays = [0, 30, 60, 120, 300, 900]
   const index = Math.min(failedAttempts, delays.length - 1)
   return delays[index] * 1000 // Convert to milliseconds
@@ -155,16 +140,10 @@ export function getTimeUntilUnlock(lockUntil: Date | null): number {
 
 // Progressive delay for login attempts
 export function shouldDelayLogin(failedAttempts: number): boolean {
-  // Apply delay starting from 3rd failed attempt
   return failedAttempts >= 3
 }
 
 export function getLoginDelayMs(failedAttempts: number): number {
-  // Progressive delay for login:
-  // 1-2 attempts: 0s
-  // 3rd attempt: 2s
-  // 4th attempt: 5s
-  // 5th attempt: 10s
   const delays = [0, 0, 2000, 5000, 10000]
   const index = Math.min(failedAttempts, delays.length - 1)
   return delays[index]
@@ -172,7 +151,6 @@ export function getLoginDelayMs(failedAttempts: number): number {
 
 // Utility to get client IP from request
 export function getClientIP(request: Request): string {
-  // Try various headers that might contain the real IP
   const forwarded = request.headers.get('x-forwarded-for')
   const realIP = request.headers.get('x-real-ip')
   const cfConnectingIP = request.headers.get('cf-connecting-ip')
@@ -180,14 +158,11 @@ export function getClientIP(request: Request): string {
   if (forwarded) {
     return forwarded.split(',')[0].trim()
   }
-
   if (realIP) {
     return realIP
   }
-
   if (cfConnectingIP) {
     return cfConnectingIP
   }
-
   return 'unknown'
 }

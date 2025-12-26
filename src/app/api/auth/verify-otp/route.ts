@@ -4,76 +4,50 @@ import { checkRateLimit, getClientIP } from '@/lib/auth-utils'
 
 export async function POST(req: Request) {
   try {
-    console.log('[VerifyOTP API] Processing OTP verification request')
-
     const body = await req.json()
     const { email, otp } = body
 
-    // Validate required fields
     if (!email || !otp) {
-      console.log('[VerifyOTP API] Missing required fields')
       return NextResponse.json({ message: 'Email and OTP are required' }, { status: 400 })
     }
 
-    // Get client IP for rate limiting
     const clientIP = getClientIP(req)
-    const rateLimitKey = `verify-otp:${clientIP}:${email}`
-
-    console.log(`[VerifyOTP API] Client IP: ${clientIP}, Email: ${email}`)
-
-    // Check rate limit (3 requests per 5 minutes)
-    const rateLimitResult = checkRateLimit(rateLimitKey, 3, 5 * 60 * 1000)
+    const rateLimitKey = `verify-otp:${clientIP || 'unknown'}:${email}`
+    const rateLimitResult = checkRateLimit(rateLimitKey, 5, 5 * 60 * 1000) // 5 requests per 5 minutes
 
     if (!rateLimitResult.allowed) {
-      const resetDate = new Date(rateLimitResult.resetTime)
       const minutesRemaining = Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)
-      console.log(`[VerifyOTP API] Rate limit exceeded for ${email}. Resets at ${resetDate.toISOString()}`)
       return NextResponse.json({
         message: `Too many attempts. Please try again in ${minutesRemaining} minutes.`,
         retryAfter: rateLimitResult.resetTime
       }, { status: 429 })
     }
 
-    // Find user by email
     const user = await db.user.findUnique({ where: { email } })
 
     if (!user) {
-      console.log(`[VerifyOTP API] User not found: ${email}`)
-      return NextResponse.json({ message: 'User not found' }, { status: 404 })
+      // Return a generic message to avoid user enumeration
+      return NextResponse.json({ message: 'Invalid OTP or email' }, { status: 400 })
     }
 
-    console.log(`[VerifyOTP API] User found: ${user.id}, ${user.email}`)
-    console.log(`[VerifyOTP API] Provided OTP: ${otp}`)
-    console.log(`[VerifyOTP API] Stored OTP: ${user.otp}`)
-    console.log(`[VerifyOTP API] OTP Expiry: ${user.otpExpiry?.toISOString()}`)
-    console.log(`[VerifyOTP API] Is Verified: ${user.isVerified}`)
-
-    // Check if already verified
     if (user.isVerified) {
-      console.log(`[VerifyOTP API] User already verified: ${email}`)
       return NextResponse.json({
         ok: true,
-        message: 'Email sudah diverifikasi',
+        message: 'Email is already verified.',
         user: { id: user.id, email: user.email, name: user.name, role: user.role }
       })
     }
 
-    // Check if OTP exists
     if (!user.otp || !user.otpExpiry) {
-      console.log(`[VerifyOTP API] No OTP found for user: ${email}`)
-      return NextResponse.json({ message: 'OTP is invalid or has expired' }, { status: 400 })
+      return NextResponse.json({ message: 'OTP is invalid or has expired. Please request a new one.' }, { status: 400 })
     }
 
-    // Check if OTP is expired
     if (new Date() > user.otpExpiry) {
-      console.log(`[VerifyOTP API] OTP expired for user: ${email}`)
-      return NextResponse.json({ message: 'OTP sudah kadaluarsa (3 menit). Silakan daftar ulang.' }, { status: 400 })
+      return NextResponse.json({ message: 'OTP has expired (10 minutes). Please request a new one.' }, { status: 400 })
     }
 
-    // Verify OTP
     if (user.otp !== otp) {
-      console.log(`[VerifyOTP API] Invalid OTP for user: ${email}`)
-      return NextResponse.json({ message: 'OTP is invalid' }, { status: 400 })
+      return NextResponse.json({ message: 'Invalid OTP or email' }, { status: 400 })
     }
 
     // OTP is correct - verify user and clear OTP
@@ -88,15 +62,13 @@ export async function POST(req: Request) {
       }
     })
 
-    console.log(`[VerifyOTP API] User verified successfully: ${updatedUser.id}, ${updatedUser.email}`)
-
     return NextResponse.json({
       ok: true,
-      message: 'Verifikasi berhasil. Anda sekarang dapat login.',
+      message: 'Verification successful. You can now log in.',
       user: { id: updatedUser.id, email: updatedUser.email, name: updatedUser.name, role: updatedUser.role }
     })
   } catch (err) {
-    console.error('[VerifyOTP API] Error:', err)
-    return NextResponse.json({ message: 'Server error', details: err instanceof Error ? err.message : String(err) }, { status: 500 })
+    console.error('[VerifyOTP API Error]', err)
+    return NextResponse.json({ message: 'An unexpected server error occurred.' }, { status: 500 })
   }
 }

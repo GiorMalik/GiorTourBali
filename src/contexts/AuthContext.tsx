@@ -27,7 +27,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user is logged in on mount from localStorage
     const storedUser = localStorage.getItem('user')
     if (storedUser) {
       try {
@@ -44,25 +43,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       })
-
       const data = await response.json()
-
       if (response.ok && data.ok) {
         setUser(data.user)
         localStorage.setItem('user', JSON.stringify(data.user))
-        console.log('[AuthContext] Login successful:', data.user)
         return { success: true, message: data.message }
       } else {
-        return { success: false, message: data.message || 'Login gagal' }
+        return { success: false, message: data.message || 'Login failed' }
       }
     } catch (error) {
-      console.error('[AuthContext] Login failed:', error)
-      return { success: false, message: 'Terjadi kesalahan saat login' }
+      console.error('[AuthContext] Login error:', error)
+      return { success: false, message: 'An error occurred during login' }
     }
   }
 
@@ -70,23 +64,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, name }),
       })
-
       const data = await response.json()
-
       if (response.ok && data.ok) {
-        console.log('[AuthContext] Registration successful:', data)
         return { success: true, message: data.message, data }
       } else {
-        return { success: false, message: data.message || 'Registrasi gagal' }
+        return { success: false, message: data.message || 'Registration failed' }
       }
     } catch (error) {
-      console.error('[AuthContext] Registration failed:', error)
-      return { success: false, message: 'Terjadi kesalahan saat registrasi' }
+      console.error('[AuthContext] Registration error:', error)
+      return { success: false, message: 'An error occurred during registration' }
     }
   }
 
@@ -94,25 +83,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await fetch('/api/auth/verify-otp', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp }),
       })
-
       const data = await response.json()
-
       if (response.ok && data.ok) {
         setUser(data.user)
         localStorage.setItem('user', JSON.stringify(data.user))
-        console.log('[AuthContext] OTP verification successful:', data.user)
         return { success: true, message: data.message, user: data.user }
       } else {
-        return { success: false, message: data.message || 'Verifikasi OTP gagal' }
+        return { success: false, message: data.message || 'OTP verification failed' }
       }
     } catch (error) {
-      console.error('[AuthContext] OTP verification failed:', error)
-      return { success: false, message: 'Terjadi kesalahan saat verifikasi OTP' }
+      console.error('[AuthContext] OTP verification error:', error)
+      return { success: false, message: 'An error occurred during OTP verification' }
     }
   }
 
@@ -120,23 +104,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await fetch('/api/auth/forgot-password', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
-
       const data = await response.json()
-
       if (response.ok && data.ok) {
-        console.log('[AuthContext] Forgot password request successful:', data)
         return { success: true, message: data.message, data }
       } else {
-        return { success: false, message: data.message || 'Gagal mengirim OTP' }
+        return { success: false, message: data.message || 'Failed to send OTP' }
       }
     } catch (error) {
-      console.error('[AuthContext] Forgot password request failed:', error)
-      return { success: false, message: 'Terjadi kesalahan saat mengirim OTP' }
+      console.error('[AuthContext] Forgot password error:', error)
+      return { success: false, message: 'An error occurred while sending OTP' }
     }
   }
 
@@ -144,28 +123,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await fetch('/api/auth/reset-password', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp, newPassword }),
       })
-
       const data = await response.json()
-
       if (response.ok && data.ok) {
-        // Update user state if login was successful in reset-password
         if (data.user) {
           setUser(data.user)
           localStorage.setItem('user', JSON.stringify(data.user))
         }
-        console.log('[AuthContext] Password reset successful:', data.user)
         return { success: true, message: data.message, user: data.user }
       } else {
-        return { success: false, message: data.message || 'Gagal mereset password' }
+        return { success: false, message: data.message || 'Failed to reset password' }
       }
     } catch (error) {
-      console.error('[AuthContext] Password reset failed:', error)
-      return { success: false, message: 'Terjadi kesalahan saat mereset password' }
+      console.error('[AuthContext] Password reset error:', error)
+      return { success: false, message: 'An error occurred while resetting password' }
     }
   }
 
@@ -173,11 +146,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       await fetch('/api/auth/logout', { method: 'POST' })
     } catch (error) {
-      console.error('[AuthContext] Logout failed:', error)
+      console.error('[AuthContext] Logout error:', error)
     } finally {
       setUser(null)
       localStorage.removeItem('user')
-      console.log('[AuthContext] Logged out successfully')
     }
   }
 
