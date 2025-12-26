@@ -1,4 +1,4 @@
-'''"use client"
+"use client"
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
@@ -45,7 +45,7 @@ export default function Header(){
   }, [pathname, isMobileMenuOpen])
 
   // Dynamic menu items based on auth state
-  const menuItems = [
+  const menuItems: Array<{key: string, href: string} | {key: string, action: () => void, isButton: true}> = [
     { key: 'Home', href: `/${locale}` },
     { key: 'Cars', href: `/${locale}/cars` },
     { key: 'Reviews', href: `/${locale}/reviews` },
@@ -88,10 +88,10 @@ export default function Header(){
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               {[...menuItems, ...(logoutItem ? [logoutItem] : [])].map((item) => (
-                'isButton' in item ? (
+                'isButton' in item && item.isButton ? (
                   <button
                     key={item.key}
-                    onClick={(item as any).action}
+                    onClick={item.action}
                     className="flex items-center space-x-2 px-4 py-2 bg-red-500/10 border border-red-500/30 rounded-xl hover:bg-red-500/20 transition-all duration-300"
                   >
                     <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@ export default function Header(){
                 ) : (
                   <Link
                     key={item.key}
-                    href={(item as any).href}
+                    href={(item as {href: string}).href}
                     className="relative text-secondary hover:text-primary transition-colors duration-300 group"
                   >
                     {t[item.key]}
@@ -130,14 +130,14 @@ export default function Header(){
               </button>
 
               {/* Mobile Menu Dropdown */}
-              <div className="absolute right-0 top-full mt-2 w-64 bg-card border border-dark rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 z-50">
+              <div ref={mobileMenuRef} className={`absolute right-0 top-full mt-2 w-64 bg-card border border-dark rounded-xl shadow-xl transition-all duration-300 transform z-50 ${isMobileMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'}`}>
                 <nav className="p-3">
                   <div className="space-y-2">
                     {[...menuItems, ...(logoutItem ? [logoutItem] : [])].map((item, index) => (
-                      'isButton' in item ? (
+                      'isButton' in item && item.isButton ? (
                         <button
                           key={item.key}
-                          onClick={() => { (item as any).action(); setIsMobileMenuOpen(false) }}
+                          onClick={() => { item.action(); setIsMobileMenuOpen(false); }}
                           className="group/item flex items-center px-4 py-3 rounded-xl hover:bg-dark-tertiary transition-all duration-300 relative overflow-hidden w-full"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-red-500/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
@@ -151,7 +151,7 @@ export default function Header(){
                       ) : (
                         <Link
                           key={item.key}
-                          href={(item as any).href}
+                          href={(item as {href: string}).href}
                           className="group/item flex items-center px-4 py-3 rounded-xl hover:bg-dark-tertiary transition-all duration-300 relative overflow-hidden"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
@@ -166,7 +166,7 @@ export default function Header(){
                               {item.key === 'Reviews' && <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />}
                               {item.key === 'About' && <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1v4zm-2-8h-2v12h4v-12z" />}
                               {item.key === 'Contact' && <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 2.22l8.89 4.26V20L15 12V8a2 2 0 00-2-2h-8a2 2 0 00-2 2z" />}
-                              {item.key === 'Login' && <path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4 4m0 0l4-4m-4 4h18M11 20l-4-4m0 0l4-4m-4 4h18M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />}
+                              {item.key === 'Login' && <path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4 4m0 0l4-4m-4 4h18M11 20l-4-4m0 0l4-4m-4 4h18M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 00-2-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />}
                               {item.key === 'Register' && <path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v-3m0 3h.01M12 9v3m0 0v-3m0 3h.01M6 9v3m0 0v-3m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />}
                             </svg>
                           </div>
@@ -190,4 +190,4 @@ export default function Header(){
       </div>
     </header>
   )
-}'''
+}
