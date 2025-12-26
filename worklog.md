@@ -356,4 +356,5 @@ Stage Summary:
 - Dependencies di-reinstall dengan versi yang benar
 - Lock file baru di-generate (558 packages)
 - Vercel sekarang akan menggunakan package.json untuk resolve dependencies
+- Vercel sekarang akan menggunakan package.json untuk resolve dependencies
 - Masalah ERR_PACKAGE_PATH_NOT_EXPORTED harusnya sudah teratasi
