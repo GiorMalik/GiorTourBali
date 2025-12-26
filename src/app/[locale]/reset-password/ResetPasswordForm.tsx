@@ -34,12 +34,13 @@ export default function ResetPasswordForm() {
   const t = useTranslations()
   const { login } = useAuth()
 
+  const emailFromParam = searchParams.get('email')
+
   useEffect(() => {
-    const emailFromParam = searchParams.get('email')
     if (emailFromParam) {
       setEmail(emailFromParam)
     }
-  }, [searchParams])
+  }, [emailFromParam])
 
   const handlePasswordChange = (value: string) => {
     setNewPassword(value)
@@ -69,7 +70,6 @@ export default function ResetPasswordForm() {
             router.push(`/${locale}`)
           } else {
             setError(t('PasswordChangedButLoginFailed'))
-            // Redirect to login page as a fallback
             setTimeout(() => router.push(`/${locale}/login`), 3000)
           }
         }, 1500)
