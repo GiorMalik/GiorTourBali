@@ -13,7 +13,8 @@ const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
  */
 export async function sendVerificationEmail(to: string, name: string, otp: string): Promise<void> {
   try {
-    const emailHtml = render(<VerificationEmail name={name} otp={otp} />);
+    // FIX: Await the render function to solve type mismatch in Vercel's build environment
+    const emailHtml = await render(<VerificationEmail name={name} otp={otp} />);
 
     const { data, error } = await resend.emails.send({
       from: `GiorBaliTour <${fromEmail}>`,
