@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import bcrypt from 'bcryptjs'
-import { validatePassword, generateOTP, getClientIP } from '@/lib/auth-utils'
+import { validatePassword, generateOTP, checkRateLimit, getClientIP } from '@/lib/auth-utils'
 import { sendVerificationEmail } from '@/lib/mail'
 
-// ... (MESSAGE_CODES remain the same)
 const MESSAGE_CODES = {
   EMAIL_ALREADY_REGISTERED: 'EmailAlreadyRegistered',
   REGISTRATION_SUCCESS: 'RegistrationSuccessful',
   INVALID_PASSWORD: 'InvalidPassword',
-  EMAIL_SEND_FAILED: 'EmailSendFailed',
 }
 
 export async function POST(req: Request) {
@@ -21,6 +19,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'All fields are required' }, { status: 400 })
     }
 
+    const clientIP = getClientIP(req)
+    const rateLimitKey = `register:${clientIP || 'unknown'}:${email}`
+    const rateLimitResult = checkRateLimit(rateLimitKey, 5, 10 * 60 * 1000) // 5 requests per 10 minutes
+
+    if (!rateLimitResult.allowed) {
+      const minutesRemaining = Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)
+      return NextResponse.json({
+        message: `Too many attempts. Please try again in ${minutesRemaining} minutes.`,
+        retryAfter: rateLimitResult.resetTime
+      }, { status: 429 })
+    }
+
     const existingUser = await db.user.findUnique({ where: { email } })
 
     if (existingUser) {
@@ -30,7 +40,7 @@ export async function POST(req: Request) {
 
       const now = new Date()
       const finalOTP = (existingUser.otpExpiry && existingUser.otpExpiry > now) ? existingUser.otp : generateOTP(6)
-      const finalOTPExpiry = new Date(Date.now() + 3 * 60 * 1000)
+      const finalOTPExpiry = new Date(Date.now() + 5 * 60 * 1000) // 5 minutes
 
       const hashedPassword = await bcrypt.hash(password, 10)
       const updatedUser = await db.user.update({
@@ -43,14 +53,7 @@ export async function POST(req: Request) {
         }
       })
 
-      // Capture the error from the email function
-      const emailError = await sendVerificationEmail(updatedUser.email, updatedUser.name, finalOTP)
-      if (emailError) {
-        return NextResponse.json({
-          message: MESSAGE_CODES.EMAIL_SEND_FAILED,
-          error: emailError
-        }, { status: 500 })
-      }
+      await sendVerificationEmail(updatedUser.email, updatedUser.name, finalOTP)
 
       return NextResponse.json({
         ok: true,
@@ -69,7 +72,7 @@ export async function POST(req: Request) {
 
     const hashedPassword = await bcrypt.hash(password, 10)
     const otp = generateOTP(6)
-    const otpExpiry = new Date(Date.now() + 3 * 60 * 1000)
+    const otpExpiry = new Date(Date.now() + 5 * 60 * 1000) // 5 minutes
 
     const user = await db.user.create({
       data: {
@@ -83,14 +86,7 @@ export async function POST(req: Request) {
       }
     })
 
-    // Capture the error from the email function
-    const emailError = await sendVerificationEmail(user.email, user.name, otp)
-    if (emailError) {
-      return NextResponse.json({
-          message: MESSAGE_CODES.EMAIL_SEND_FAILED,
-          error: emailError
-      }, { status: 500 })
-    }
+    await sendVerificationEmail(user.email, user.name, otp)
 
     return NextResponse.json({
       ok: true,
@@ -100,6 +96,7 @@ export async function POST(req: Request) {
 
   } catch (err) {
     console.error('[Register API Error]', err)
-    return NextResponse.json({ message: 'Server error' }, { status: 500 })
+    // Avoid sending detailed error messages to the client in production
+    return NextResponse.json({ message: 'An unexpected server error occurred.' }, { status: 500 })
   }
 }
