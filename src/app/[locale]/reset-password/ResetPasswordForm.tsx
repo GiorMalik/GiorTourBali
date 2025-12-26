@@ -32,7 +32,6 @@ export default function ResetPasswordForm() {
   const searchParams = useSearchParams()
   const locale = pathname.split('/')[1] || 'en'
   const t = useTranslations()
-  const { login } = useAuth()
 
   const emailFromParam = searchParams.get('email')
 
@@ -184,7 +183,7 @@ export default function ResetPasswordForm() {
 
         <div className="text-center pt-4 mt-4 border-t border-dark">
             <Link href={`/${locale}/login`} className="text-sm text-secondary hover:text-primary">
-              {t('BackToLogin') as string}
+              {t('BackToLogin' as const)}
             </Link>
         </div>
       </div>
