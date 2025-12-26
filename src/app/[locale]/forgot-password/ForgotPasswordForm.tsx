@@ -9,7 +9,6 @@ export default function ForgotPasswordForm(){
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
-  const [generatedOTP, setGeneratedOTP] = useState<string | null>(null)
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -26,8 +25,6 @@ export default function ForgotPasswordForm(){
     setLoading(true)
     setError(null)
 
-    console.log('[ForgotPassword] Requesting OTP for:', email)
-
     try{
       const response = await fetch('/api/auth/forgot-password', {
         method: 'POST',
@@ -40,17 +37,11 @@ export default function ForgotPasswordForm(){
       const data = await response.json()
 
       if (response.ok && data.ok) {
-        console.log('[ForgotPassword] OTP sent successfully')
-        console.log('[ForgotPassword] OTP:', data.otp)
-
-        setGeneratedOTP(data.otp)
         setSuccess(true)
       } else {
-        console.log('[ForgotPassword] Request failed:', data.message)
         setError(data.message || t('AnErrorOccurred'))
       }
     }catch(err: any){
-      console.error('[ForgotPassword] Error:', err)
       setError(err.message || t('AnErrorOccurred'))
     }finally{
       setLoading(false)
@@ -87,12 +78,6 @@ export default function ForgotPasswordForm(){
               <div className="flex-1">
                 <p className="text-blue-400 font-medium mb-1">{t('PasswordSuccessfullyChanged') as string}</p>
                 <p className="text-blue-300 text-sm mb-2">{t('OTPCodeSentTo').replace('{email}', email)}</p>
-                {generatedOTP && (
-                  <div className="bg-dark-tertiary p-3 rounded-lg">
-                    <p className="text-xs text-secondary mb-1">{t('YourOTPCodeDevelopmentMode') as string}</p>
-                    <p className="text-2xl font-mono font-bold text-primary tracking-wider">{generatedOTP}</p>
-                  </div>
-                )}
                 <p className="text-blue-300 text-xs">{t('EnterOTPCodeAndNewPassword') as string}</p>
               </div>
             </div>
