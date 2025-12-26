@@ -72,7 +72,7 @@ export default async function ContactPage({ params }: { params: { locale: string
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d492.9141009999743!2d115.17750430713947!3d-8.756610604233083!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2451b862fc66f%3A0x84db67cd9ab7ae96!2sGarasi%20Unit%20Kecil%20Adhi%20Trans!5e0!3m2!1sid!2sid!4v1761064808936!5m2!1sid!2sid" 
                 width="100%" 
                 height="450" 
-                allowFullScreen="" 
+                allowFullScreen 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade" 
                 className="w-full h-96 lg:h-full min-h-[450px]" 
