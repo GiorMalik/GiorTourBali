@@ -317,4 +317,43 @@ Stage Summary:
 - Downgrade next-intl ke versi 2.9.0 yang lebih stabil
 - Semua dependencies terinstall ulang dengan versi yang kompatibel
 - Perubahan sudah di-push ke GitHub
+- Perubahan sudah di-push ke GitHub
 - Siap untuk redeploy di Vercel
+
+---
+Task ID: 12
+Agent: Z.ai Code
+Task: Hapus Lock Files dari Repository
+
+Work Log:
+- Mengalami error yang sama di Vercel build: ERR_PACKAGE_PATH_NOT_EXPORTED
+- Menemukan bahwa ada dua lock files di repository:
+  - bun.lock (digunakan oleh bun)
+  - package-lock.json (digunakan oleh npm)
+- Vercel menggunakan package-lock.json lama yang mengacu ke next-intl 2.15.0
+- Saya sudah update package.json ke next-intl 2.9.0 tapi lock file lama belum terupdate
+- Menghapus kedua lock files dari repository
+- Reinstall semua dependencies dengan bun
+  - Total packages: 558 (bertambah 20 dari sebelumnya)
+  - Lockfile baru di-generate
+- Memverifikasi package.json sudah benar:
+  - next-intl: ^2.9.0 (versi stabil)
+  - Prisma: ^5.13.0
+  - Next.js: 14.2.35
+- Commit dan push perubahan ke GitHub
+  - Commit: 8d723f1 - fix: remove lock files and reinstall dependencies
+
+Files Deleted:
+- bun.lock (removed from git)
+- package-lock.json (removed from git)
+
+Files Modified:
+- package.json (next-intl: ^2.9.0)
+- bun.lock (regenerated with 558 packages)
+
+Stage Summary:
+- Lock files berhasil dihapus dari repository
+- Dependencies di-reinstall dengan versi yang benar
+- Lock file baru di-generate (558 packages)
+- Vercel sekarang akan menggunakan package.json untuk resolve dependencies
+- Masalah ERR_PACKAGE_PATH_NOT_EXPORTED harusnya sudah teratasi
