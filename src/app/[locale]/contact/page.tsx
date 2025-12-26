@@ -6,7 +6,7 @@ export default async function ContactPage({ params }: { params: { locale: string
   return (
     <section id="contact" className="py-20 bg-dark-primary">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">{t('ContactUs')}</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">{t('ContactUs') as string}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="space-y-6">
             <div className="flex items-center space-x-4 p-4 bg-dark-secondary rounded-lg hover:bg-dark-tertiary transition-all duration-300 group">
@@ -45,23 +45,23 @@ export default async function ContactPage({ params }: { params: { locale: string
               <span className="text-lg text-primary font-medium">Bali, Indonesia</span>
             </div>
             <div className="mt-8 p-6 bg-dark-secondary rounded-lg border border-accent-green">
-              <h4 className="text-lg font-semibold text-primary mb-3">{t('BusinessHours')}</h4>
+              <h4 className="text-lg font-semibold text-primary mb-3">{t('BusinessHours') as string}</h4>
               <div className="space-y-2 text-secondary">
                 <div className="flex justify-between">
-                  <span>{t('MondayFriday')}</span>
-                  <span className="text-accent-green">{t('TwentyFourHours')}</span>
+                  <span>{t('MondayFriday') as string}</span>
+                  <span className="text-accent-green">{t('TwentyFourHours') as string}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>{t('Saturday')}</span>
-                  <span className="text-accent-green">{t('TwentyFourHours')}</span>
+                  <span>{t('Saturday') as string}</span>
+                  <span className="text-accent-green">{t('TwentyFourHours') as string}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>{t('Sunday')}</span>
-                  <span className="text-accent-green">{t('TwentyFourHours')}</span>
+                  <span>{t('Sunday') as string}</span>
+                  <span className="text-accent-green">{t('TwentyFourHours') as string}</span>
                 </div>
               </div>
               <div className="mt-4 p-3 bg-accent-green/10 rounded-lg border border-accent-green/30">
-                <p className="text-accent-green text-sm font-medium">🌴 {t('BaliTimeZone')}</p>
+                <p className="text-accent-green text-sm font-medium">🌴 {t('BaliTimeZone') as string}</p>
                 <p className="text-secondary text-xs mt-1">UTC+8:00</p>
               </div>
             </div>
@@ -80,27 +80,27 @@ export default async function ContactPage({ params }: { params: { locale: string
               />
             </div>
             <div className="bg-dark-secondary p-6 rounded-lg">
-              <h4 className="text-lg font-semibold text-primary mb-3">{t('ServiceAreas')}</h4>
+              <h4 className="text-lg font-semibold text-primary mb-3">{t('ServiceAreas') as string}</h4>
               <ul className="space-y-2 text-secondary">
                 <li className="flex items-center">
                   <div className="w-2 h-2 bg-accent-green rounded-full mr-3"></div>
-                  {t('DenpasarBadung')}
+                  {t('DenpasarBadung') as string}
                 </li>
                 <li className="flex items-center">
                   <div className="w-2 h-2 bg-accent-green rounded-full mr-3"></div>
-                  {t('NgurahRaiAirport')}
+                  {t('NgurahRaiAirport') as string}
                 </li>
                 <li className="flex items-center">
                   <div className="w-2 h-2 bg-accent-green rounded-full mr-3"></div>
-                  {t('KutaSeminyakLegian')}
+                  {t('KutaSeminyakLegian') as string}
                 </li>
                 <li className="flex items-center">
                   <div className="w-2 h-2 bg-accent-green rounded-full mr-3"></div>
-                  {t('UbudCangguNusaDua')}
+                  {t('UbudCangguNusaDua') as string}
                 </li>
                 <li className="flex items-center">
                   <div className="w-2 h-2 bg-accent-green rounded-full mr-3"></div>
-                  {t('AllBaliAreas')}
+                  {t('AllBaliAreas') as string}
                 </li>
               </ul>
             </div>
@@ -108,8 +108,8 @@ export default async function ContactPage({ params }: { params: { locale: string
         </div>
         <div className="mt-16 bg-dark-secondary rounded-lg p-8 border border-accent-green">
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-semibold text-primary mb-4">{t('QuickBookingInquiry')}</h3>
-            <p className="text-secondary">{t('QuickBookingDescription')}</p>
+            <h3 className="text-2xl font-semibold text-primary mb-4">{t('QuickBookingInquiry') as string}</h3>
+            <p className="text-secondary">{t('QuickBookingDescription') as string}</p>
           </div>
           <div className="max-w-2xl mx-auto">
             <a 
@@ -121,7 +121,7 @@ export default async function ContactPage({ params }: { params: { locale: string
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-circle w-5 h-5 inline mr-2" aria-hidden="true">
                 <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
               </svg>
-              {t('StartWhatsAppConversation')}
+              {t('StartWhatsAppConversation') as string}
             </a>
           </div>
         </div>

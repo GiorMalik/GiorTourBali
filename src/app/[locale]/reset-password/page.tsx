@@ -128,12 +128,12 @@ export default function ResetPasswordPage(){
             />
           </div>
           <h1 className="text-3xl font-bold text-gradient mb-2">GiorBaliTour</h1>
-          <p className="text-secondary">{t('ResetYourPassword')}</p>
+          <p className="text-secondary">{t('ResetYourPassword') as string}</p>
         </div>
 
         {/* Reset Password Card */}
         <div className="card-modern p-8 border-gradient">
-          <h2 className="text-2xl font-bold text-primary mb-6 text-center">{t('ResetYourPassword')}</h2>
+          <h2 className="text-2xl font-bold text-primary mb-6 text-center">{t('ResetYourPassword') as string}</h2>
 
           {success && (
             <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
@@ -144,8 +144,8 @@ export default function ResetPasswordPage(){
                   </svg>
                 </div>
                 <div>
-                  <p className="text-green-400 font-medium">{t('PasswordSuccessfullyChanged')}</p>
-                  <p className="text-green-300 text-sm">{t('LoggingInAutomatically')}</p>
+                  <p className="text-green-400 font-medium">{t('PasswordSuccessfullyChanged') as string}</p>
+                  <p className="text-green-300 text-sm">{t('LoggingInAutomatically') as string}</p>
                 </div>
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function ResetPasswordPage(){
           {!success && (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-primary">{t('EmailLabel')}</label>
+                <label className="block text-sm font-medium text-primary">{t('EmailLabel') as string}</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                     <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -179,7 +179,7 @@ export default function ResetPasswordPage(){
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     className="w-full pl-12 pr-4 py-3 bg-dark-secondary border border-dark rounded-xl text-primary placeholder-secondary transition-all duration-300 focus:border-accent-green focus:outline-none focus:ring-2 focus:ring-accent-green/20"
-                    placeholder={t('EmailPlaceholder')}
+                    placeholder={t('EmailPlaceholder') as string}
                     required
                     disabled={loading}
                   />
@@ -187,7 +187,7 @@ export default function ResetPasswordPage(){
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-primary">{t('OTPCodeLabel')}</label>
+                <label className="block text-sm font-medium text-primary">{t('OTPCodeLabel') as string}</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                     <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,7 +209,7 @@ export default function ResetPasswordPage(){
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-primary">{t('NewPassword')}</label>
+                <label className="block text-sm font-medium text-primary">{t('NewPassword') as string}</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                     <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,7 +221,7 @@ export default function ResetPasswordPage(){
                     value={newPassword}
                     onChange={e => handlePasswordChange(e.target.value)}
                     className="w-full pl-12 pr-12 py-3 bg-dark-secondary border border-dark rounded-xl text-primary placeholder-secondary transition-all duration-300 focus:border-accent-green focus:outline-none focus:ring-2 focus:ring-accent-green/20"
-                    placeholder={t('Minimum8Characters')}
+                    placeholder={t('Minimum8Characters') as string}
                     required
                     disabled={loading}
                   />
@@ -246,7 +246,7 @@ export default function ResetPasswordPage(){
                 {newPassword && (
                   <div className="mt-3 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-secondary">{t('PasswordStrength')}:</span>
+                      <span className="text-xs text-secondary">{t('PasswordStrength') as string}:</span>
                       <span className={`text-xs font-medium ${
                         passwordValidation.strength === 'weak' ? 'text-red-400' :
                         passwordValidation.strength === 'medium' ? 'text-yellow-400' :
@@ -267,7 +267,7 @@ export default function ResetPasswordPage(){
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span>{t('Minimum8Characters')}</span>
+                        <span>{t('Minimum8Characters') as string}</span>
                       </div>
                       <div className={`flex items-center space-x-2 /[A-Z]/.test(newPassword) ? 'text-green-400' : 'text-secondary'}`}>
                         <svg className={`w-3 h-3 ${/[A-Z]/.test(newPassword) ? 'text-green-400' : 'text-secondary'}`} fill="currentColor" viewBox="0 0 20 20">
@@ -277,7 +277,7 @@ export default function ResetPasswordPage(){
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0z" clipRule="evenodd" />
                           )}
                         </svg>
-                        <span>{t('UppercaseLetter')}</span>
+                        <span>{t('UppercaseLetter') as string}</span>
                       </div>
                       <div className={`flex items-center space-x-2 /[a-z]/.test(newPassword) ? 'text-green-400' : 'text-secondary'}`}>
                         <svg className={`w-3 h-3 ${/[a-z]/.test(newPassword) ? 'text-green-400' : 'text-secondary'}`} fill="currentColor" viewBox="0 0 20 20">
@@ -287,7 +287,7 @@ export default function ResetPasswordPage(){
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0z" clipRule="evenodd" />
                           )}
                         </svg>
-                        <span>{t('LowercaseLetter')}</span>
+                        <span>{t('LowercaseLetter') as string}</span>
                       </div>
                       <div className={`flex items-center space-x-2 /[0-9]/.test(newPassword) ? 'text-green-400' : 'text-secondary'}`}>
                         <svg className={`w-3 h-3 ${/[0-9]/.test(newPassword) ? 'text-green-400' : 'text-secondary'}`} fill="currentColor" viewBox="0 0 20 20">
@@ -297,7 +297,7 @@ export default function ResetPasswordPage(){
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0z" clipRule="evenodd" />
                           )}
                         </svg>
-                        <span>{t('PasswordNumber')}</span>
+                        <span>{t('PasswordNumber') as string}</span>
                       </div>
                     </div>
                   </div>

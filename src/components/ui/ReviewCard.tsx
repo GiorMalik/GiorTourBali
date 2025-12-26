@@ -117,7 +117,7 @@ export default function ReviewCard({ review, animationDelay = 0 }: ReviewCardPro
       {/* Footer */}
       <div className="mt-4 pt-4 border-t border-dark/20">
         <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span>{review.rating} {t('outOf5')}</span>
+          <span>{review.rating} {t('outOf5') as string}</span>
           <span>{formatDate(review.createdAt)}</span>
         </div>
       </div>

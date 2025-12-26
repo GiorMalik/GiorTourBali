@@ -39,7 +39,7 @@ export default function ReviewStats({ averageRating, totalReviews, distribution 
               ))}
             </div>
             <p className="text-secondary">
-              {t('BasedOn')} {totalReviews} {t('Reviews')}
+              {t('BasedOn') as string} {totalReviews} {t('Reviews') as string}
             </p>
           </div>
         </div>
@@ -47,7 +47,7 @@ export default function ReviewStats({ averageRating, totalReviews, distribution 
         {/* Rating Distribution */}
         <div className="space-y-3">
           <h3 className="font-semibold text-primary mb-4">
-            {t('RatingDistribution')}
+            {t('RatingDistribution') as string}
           </h3>
           {distribution.map((item) => (
             <div key={item.rating} className="flex items-center space-x-3">
@@ -78,25 +78,25 @@ export default function ReviewStats({ averageRating, totalReviews, distribution 
           <div className="text-2xl font-bold text-accent-green mb-1">
             {distribution.filter(d => d.rating === 5).reduce((sum, d) => sum + d.count, 0)}
           </div>
-          <p className="text-xs text-secondary">{t('FiveStarReviews')}</p>
+          <p className="text-xs text-secondary">{t('FiveStarReviews') as string}</p>
         </div>
         <div className="text-center">
           <div className="text-2xl font-bold text-accent-green mb-1">
             {distribution.filter(d => d.rating >= 4).reduce((sum, d) => sum + d.count, 0)}
           </div>
-          <p className="text-xs text-secondary">{t('FourPlusStarReviews')}</p>
+          <p className="text-xs text-secondary">{t('FourPlusStarReviews') as string}</p>
         </div>
         <div className="text-center">
           <div className="text-2xl font-bold text-accent-green mb-1">
             {Math.round((distribution.filter(d => d.rating >= 4).reduce((sum, d) => sum + d.count, 0) / totalReviews) * 100)}%
           </div>
-          <p className="text-xs text-secondary">{t('SatisfactionRate')}</p>
+          <p className="text-xs text-secondary">{t('SatisfactionRate') as string}</p>
         </div>
         <div className="text-center">
           <div className="text-2xl font-bold text-accent-green mb-1">
             {totalReviews}
           </div>
-          <p className="text-xs text-secondary">{t('TotalReviews')}</p>
+          <p className="text-xs text-secondary">{t('TotalReviews') as string}</p>
         </div>
       </div>
     </div>

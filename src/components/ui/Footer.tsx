@@ -25,7 +25,7 @@ export default function Footer(){
               <span className="text-xl font-bold text-gradient">GiorBaliTour</span>
             </div>
             <p className="text-secondary leading-relaxed">
-              {t('FooterDescription')}
+              {t('FooterDescription') as string}
             </p>
             <div className="flex space-x-4">
               <a 
@@ -61,7 +61,7 @@ export default function Footer(){
 
           {/* Contact Section */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-gradient">{t('Contact')}</h3>
+            <h3 className="text-xl font-bold text-gradient">{t('Contact') as string}</h3>
             <div className="space-y-3">
               <a 
                 href="mailto:giorginomalik@gmail.com" 
@@ -107,7 +107,7 @@ export default function Footer(){
 
           {/* Navigation Section */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-gradient">{t('Navigation')}</h3>
+            <h3 className="text-xl font-bold text-gradient">{t('Navigation') as string}</h3>
             <div className="grid grid-cols-2 gap-2">
               {[
                 { name: t('Home'), href: `/${locale}` },
@@ -129,10 +129,10 @@ export default function Footer(){
               <div className="p-4 bg-dark-tertiary rounded-xl border border-dark">
                 <div className="flex items-center space-x-2 mb-2">
                   <div className="w-2 h-2 bg-accent-green rounded-full pulse"></div>
-                  <span className="text-sm font-semibold text-accent-green">{t('Available247')}</span>
+                  <span className="text-sm font-semibold text-accent-green">{t('Available247') as string}</span>
                 </div>
                 <p className="text-xs text-secondary">
-                  {t('Available247Description')}
+                  {t('Available247Description') as string}
                 </p>
               </div>
             </div>
@@ -143,7 +143,7 @@ export default function Footer(){
         <div className="border-t border-dark pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-secondary text-sm">
-              © 2021 GiorBaliTour. {t('AllRightsReserved')}
+              © 2021 GiorBaliTour. {t('AllRightsReserved') as string}
             </p>
             <div className="flex items-center space-x-2">
               <span className="text-secondary text-sm">Powered by</span>

@@ -67,9 +67,9 @@ export default function ReviewFilters({
     <div className="card-modern p-6 mb-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center space-x-2 text-sm text-secondary">
-          <span>{t('Showing')}</span>
+          <span>{t('Showing') as string}</span>
           <span className="font-semibold text-primary">{totalReviews}</span>
-          <span>{t('Reviews')}</span>
+          <span>{t('Reviews') as string}</span>
         </div>
 
         <div className="flex flex-wrap items-center gap-4">
@@ -79,7 +79,7 @@ export default function ReviewFilters({
             onChange={(e) => updateFilters({ rating: e.target.value || null })}
             className="input-modern text-sm"
           >
-            <option value="">{t('AllRatings')}</option>
+            <option value="">{t('AllRatings') as string}</option>
             {ratingOptions.map(option => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -93,7 +93,7 @@ export default function ReviewFilters({
             onChange={(e) => updateFilters({ lang: e.target.value || null })}
             className="input-modern text-sm"
           >
-            <option value="">{t('AllLanguages')}</option>
+            <option value="">{t('AllLanguages') as string}</option>
             {languageOptions.map(option => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -120,7 +120,7 @@ export default function ReviewFilters({
               onClick={() => updateFilters({ rating: null, lang: null })}
               className="text-accent-green hover:text-accent-green/80 text-sm font-medium transition-colors"
             >
-              {t('ClearFilters')}
+              {t('ClearFilters') as string}
             </button>
           )}
         </div>

@@ -107,12 +107,12 @@ export default function LoginPage(){
             />
           </div>
           <h1 className="text-3xl font-bold text-gradient mb-2">GiorBaliTour</h1>
-          <p className="text-secondary">{t('WelcomeBackSignIn')}</p>
+          <p className="text-secondary">{t('WelcomeBackSignIn') as string}</p>
         </div>
 
         {/* Login Card */}
         <div className="card-modern p-8 border-gradient">
-          <h2 className="text-2xl font-bold text-primary mb-6 text-center">{t('SignIn')}</h2>
+          <h2 className="text-2xl font-bold text-primary mb-6 text-center">{t('SignIn') as string}</h2>
 
           {/* Locked Account Message */}
           {locked && (
@@ -124,10 +124,10 @@ export default function LoginPage(){
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <p className="text-red-400 font-medium mb-1">{t('AccountLocked')}</p>
-                  <p className="text-red-300 text-sm mb-2">{t('YourAccountHasBeenLocked')}</p>
+                  <p className="text-red-400 font-medium mb-1">{t('AccountLocked') as string}</p>
+                  <p className="text-red-300 text-sm mb-2">{t('YourAccountHasBeenLocked') as string}</p>
                   <div className="bg-dark-tertiary p-2 rounded-lg">
-                    <p className="text-xs text-secondary mb-1">{t('PleaseWait')}</p>
+                    <p className="text-xs text-secondary mb-1">{t('PleaseWait') as string}</p>
                     <p className="text-xl font-mono font-bold text-red-400">{formatTimeRemaining(lockTimeRemaining)}</p>
                   </div>
                 </div>
@@ -147,7 +147,7 @@ export default function LoginPage(){
                 <div className="flex-1">
                   <p className="text-red-400 text-sm">{error}</p>
                   {remainingAttempts !== null && remainingAttempts > 0 && (
-                    <p className="text-red-300 text-xs mt-1">{t('RemainingAttempts')} {remainingAttempts}</p>
+                    <p className="text-red-300 text-xs mt-1">{t('RemainingAttempts') as string} {remainingAttempts}</p>
                   )}
                 </div>
               </div>
@@ -156,7 +156,7 @@ export default function LoginPage(){
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-primary">{t('EmailLabel')}</label>
+              <label className="block text-sm font-medium text-primary">{t('EmailLabel') as string}</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                   <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,7 +168,7 @@ export default function LoginPage(){
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   className="w-full pl-12 pr-4 py-3 bg-dark-secondary border border-dark rounded-xl text-primary placeholder-secondary transition-all duration-300 focus:border-accent-green focus:outline-none focus:ring-2 focus:ring-accent-green/20"
-                  placeholder={t('EmailPlaceholder')}
+                  placeholder={t('EmailPlaceholder') as string}
                   required
                   disabled={locked || loading}
                 />
@@ -176,7 +176,7 @@ export default function LoginPage(){
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-primary">{t('Password')}</label>
+              <label className="block text-sm font-medium text-primary">{t('Password') as string}</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                   <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -188,7 +188,7 @@ export default function LoginPage(){
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   className="w-full pl-12 pr-12 py-3 bg-dark-secondary border border-dark rounded-xl text-primary placeholder-secondary transition-all duration-300 focus:border-accent-green focus:outline-none focus:ring-2 focus:ring-accent-green/20"
-                  placeholder={t('EnterYourPassword')}
+                  placeholder={t('EnterYourPassword') as string}
                   required
                   disabled={locked || loading}
                 />
@@ -232,7 +232,7 @@ export default function LoginPage(){
               {loading ? (
                 <div className="flex items-center justify-center space-x-2">
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  <span>{t('Processing')}</span>
+                  <span>{t('Processing') as string}</span>
                 </div>
               ) : (
                 t('SignInNow')
@@ -245,10 +245,10 @@ export default function LoginPage(){
                   type="checkbox"
                   className="w-4 h-4 text-accent-green bg-dark-secondary border-dark rounded focus:ring-accent-green focus:ring-2 focus:ring-offset-0"
                 />
-                <span>{t('RememberMe')}</span>
+                <span>{t('RememberMe') as string}</span>
               </label>
               <Link href={`/${pathname.split('/')[1] || 'en'}/forgot-password`} className="text-sm text-accent-green hover:text-accent-green-light font-medium transition-all duration-300 hover:underline inline-flex items-center group">
-                {t('ForgotPassword')}
+                {t('ForgotPassword') as string}
                 <svg className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 018 0z" />
                 </svg>
@@ -257,12 +257,12 @@ export default function LoginPage(){
 
             <div className="text-center pt-4 border-t border-dark">
               <p className="text-secondary text-sm">
-                {t('DontHaveAnAccount')}{' '}
+                {t('DontHaveAnAccount') as string}{' '}
                 <Link
                   href={`/${pathname.split('/')[1] || 'en'}/register`}
                   className="inline-flex items-center text-accent-green hover:text-accent-green-light font-semibold transition-all duration-300 hover:underline group"
                 >
-                  {t('SignUpHere')}
+                  {t('SignUpHere') as string}
                   <svg className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -274,7 +274,7 @@ export default function LoginPage(){
 
         {/* Quick Access */}
         <div className="mt-6 text-center">
-          <p className="text-muted text-xs mb-3">{t('OrSignInWith')}</p>
+          <p className="text-muted text-xs mb-3">{t('OrSignInWith') as string}</p>
           <div className="flex justify-center space-x-3">
             <button className="p-3 bg-dark-secondary border border-dark rounded-xl hover:bg-dark-tertiary transition-all duration-300 group">
               <svg className="w-5 h-5 text-secondary group-hover:text-primary transition-colors" fill="currentColor" viewBox="0 0 24 24">

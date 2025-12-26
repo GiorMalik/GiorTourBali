@@ -31,7 +31,7 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
                 <div className="absolute top-6 right-6">
                   <div className="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold flex items-center space-x-2 transition-all duration-300 hover:scale-105 animate-bounce">
                     <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>{t('AvailableNow')}</span>
+                    <span>{t('AvailableNow') as string}</span>
                   </div>
                 </div>
               </div>
@@ -45,7 +45,7 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
               <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-6">{car.name}</h1>
               
               <div className="flex items-baseline space-x-2">
-                <span className="text-sm text-secondary">{t('StartingFrom')}</span>
+                <span className="text-sm text-secondary">{t('StartingFrom') as string}</span>
                 <span className="text-4xl font-bold text-gradient">
                   Rp {car.pricePerDay.toLocaleString('id-ID')}
                 </span>
@@ -58,13 +58,13 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-sm text-accent-green font-medium">{t('DriverFuelIncluded')}</span>
+                <span className="text-sm text-accent-green font-medium">{t('DriverFuelIncluded') as string}</span>
               </div>
             </div>
 
             {/* Specifications */}
             <div className="card-modern p-6">
-              <h2 className="text-2xl font-bold text-primary mb-6">{t('Specifications')}</h2>
+              <h2 className="text-2xl font-bold text-primary mb-6">{t('Specifications') as string}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-accent-green to-accent-green-light rounded-xl flex items-center justify-center flex-shrink-0">
@@ -73,8 +73,8 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-secondary mb-1">{t('PassengerCapacity')}</p>
-                    <p className="text-2xl font-bold text-primary">{car.capacity} {t('People')}</p>
+                    <p className="text-sm text-secondary mb-1">{t('PassengerCapacity') as string}</p>
+                    <p className="text-2xl font-bold text-primary">{car.capacity} {t('People') as string}</p>
                   </div>
                 </div>
                 
@@ -85,7 +85,7 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-secondary mb-1">{t('Transmission')}</p>
+                    <p className="text-sm text-secondary mb-1">{t('Transmission') as string}</p>
                     <p className="text-2xl font-bold text-primary">{car.transmission}</p>
                   </div>
                 </div>
@@ -94,7 +94,7 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
 
             {/* Features */}
             <div className="card-modern p-6">
-              <h2 className="text-2xl font-bold text-primary mb-6">{t('WhatsIncluded')}</h2>
+              <h2 className="text-2xl font-bold text-primary mb-6">{t('WhatsIncluded') as string}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   t('ProfessionalDriver'),
@@ -119,21 +119,21 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
             {/* Booking Buttons */}
             <div className="space-y-4">
               <button className="btn-modern w-full py-4 text-lg font-semibold">
-                {t('BookThisCarNow')}
+                {t('BookThisCarNow') as string}
               </button>
               <div className="grid grid-cols-2 gap-4">
                 <button className="btn-accent w-full py-3 text-sm font-medium">
-                  {t('SaveToWishlist')}
+                  {t('SaveToWishlist') as string}
                 </button>
                 <button className="card-modern w-full py-3 text-sm font-medium hover:border-accent-green transition-colors">
-                  {t('CompareCars')}
+                  {t('CompareCars') as string}
                 </button>
               </div>
             </div>
 
             {/* Trust Indicators */}
             <div className="card-modern p-6 bg-gradient-to-r from-accent-green/5 to-accent-yellow/5">
-              <h3 className="text-lg font-bold text-primary mb-4">{t('WhyBookWithUs')}</h3>
+              <h3 className="text-lg font-bold text-primary mb-4">{t('WhyBookWithUs') as string}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-start space-x-3">
                   <div className="w-8 h-8 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -142,8 +142,8 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-primary">{t('InstantConfirmation')}</p>
-                    <p className="text-xs text-secondary">{t('InstantConfirmationDescription')}</p>
+                    <p className="text-sm font-semibold text-primary">{t('InstantConfirmation') as string}</p>
+                    <p className="text-xs text-secondary">{t('InstantConfirmationDescription') as string}</p>
                   </div>
                 </div>
                 
@@ -154,8 +154,8 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-primary">{t('BestPriceGuaranteeDetail')}</p>
-                    <p className="text-xs text-secondary">{t('BestPriceGuaranteeDescription')}</p>
+                    <p className="text-sm font-semibold text-primary">{t('BestPriceGuaranteeDetail') as string}</p>
+                    <p className="text-xs text-secondary">{t('BestPriceGuaranteeDescription') as string}</p>
                   </div>
                 </div>
                 
@@ -166,8 +166,8 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-primary">{t('TrustedService')}</p>
-                    <p className="text-xs text-secondary">{t('TrustedServiceDescription')}</p>
+                    <p className="text-sm font-semibold text-primary">{t('TrustedService') as string}</p>
+                    <p className="text-xs text-secondary">{t('TrustedServiceDescription') as string}</p>
                   </div>
                 </div>
                 
@@ -178,8 +178,8 @@ export default async function CarDetailPage({ params }: { params: { id: string, 
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-primary">{t('Support247')}</p>
-                    <p className="text-xs text-secondary">{t('Support247Description')}</p>
+                    <p className="text-sm font-semibold text-primary">{t('Support247') as string}</p>
+                    <p className="text-xs text-secondary">{t('Support247Description') as string}</p>
                   </div>
                 </div>
               </div>

@@ -68,7 +68,7 @@ export default function Pagination({
             : 'bg-muted text-muted-foreground cursor-not-allowed'
         }`}
       >
-        ← {t('Previous')}
+        ← {t('Previous') as string}
       </button>
 
       {/* Page Numbers */}
@@ -103,7 +103,7 @@ export default function Pagination({
             : 'bg-muted text-muted-foreground cursor-not-allowed'
         }`}
       >
-        {t('Next')} →
+        {t('Next') as string} →
       </button>
     </div>
   )

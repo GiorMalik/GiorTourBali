@@ -138,14 +138,14 @@ export default function RegisterPage(){
             />
           </div>
           <h1 className="text-3xl font-bold text-gradient mb-2">GiorBaliTour</h1>
-          <p className="text-secondary">{t('JoinUsForBestExperience')}</p>
+          <p className="text-secondary">{t('JoinUsForBestExperience') as string}</p>
         </div>
 
         {/* Register Card */}
         <div className="card-modern p-8 border-gradient">
           {!showOTPStep ? (
             <>
-              <h2 className="text-2xl font-bold text-primary mb-6 text-center">{t('CreateNewAccount')}</h2>
+              <h2 className="text-2xl font-bold text-primary mb-6 text-center">{t('CreateNewAccount') as string}</h2>
 
               {error && (
                 <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
@@ -162,7 +162,7 @@ export default function RegisterPage(){
 
               <form onSubmit={handleRegister} className="space-y-6">
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-primary">{t('FullName')}</label>
+                  <label className="block text-sm font-medium text-primary">{t('FullName') as string}</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                       <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -174,14 +174,14 @@ export default function RegisterPage(){
                       value={name}
                       onChange={e => setName(e.target.value)}
                       className="w-full pl-12 pr-4 py-3 bg-dark-secondary border border-dark rounded-xl text-primary placeholder-secondary transition-all duration-300 focus:border-accent-green focus:outline-none focus:ring-2 focus:ring-accent-green/20"
-                      placeholder={t('EnterYourFullName')}
+                      placeholder={t('EnterYourFullName') as string}
                       required
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-primary">{t('Email')}</label>
+                  <label className="block text-sm font-medium text-primary">{t('Email') as string}</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                       <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -193,14 +193,14 @@ export default function RegisterPage(){
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       className="w-full pl-12 pr-4 py-3 bg-dark-secondary border border-dark rounded-xl text-primary placeholder-secondary transition-all duration-300 focus:border-accent-green focus:outline-none focus:ring-2 focus:ring-accent-green/20"
-                      placeholder={t('EmailPlaceholder')}
+                      placeholder={t('EmailPlaceholder') as string}
                       required
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-primary">{t('Password')}</label>
+                  <label className="block text-sm font-medium text-primary">{t('Password') as string}</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                       <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -212,7 +212,7 @@ export default function RegisterPage(){
                       value={password}
                       onChange={e => handlePasswordChange(e.target.value)}
                       className="w-full pl-12 pr-12 py-3 bg-dark-secondary border border-dark rounded-xl text-primary placeholder-secondary transition-all duration-300 focus:border-accent-green focus:outline-none focus:ring-2 focus:ring-accent-green/20"
-                      placeholder={t('Minimum8Characters')}
+                      placeholder={t('Minimum8Characters') as string}
                       required
                     />
                     <button
@@ -236,7 +236,7 @@ export default function RegisterPage(){
                   {password && (
                     <div className="mt-3 space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs text-secondary">{t('PasswordStrength')}</span>
+                        <span className="text-xs text-secondary">{t('PasswordStrength') as string}</span>
                         <span className={`text-xs font-medium ${
                           passwordValidation.strength === 'weak' ? 'text-red-400' :
                           passwordValidation.strength === 'medium' ? 'text-yellow-400' :
@@ -257,7 +257,7 @@ export default function RegisterPage(){
                           <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
-                          <span>{t('Minimum8Characters')}</span>
+                          <span>{t('Minimum8Characters') as string}</span>
                         </div>
                         <div className={`flex items-center space-x-2 ${/[A-Z]/.test(password) ? 'text-green-400' : 'text-secondary'}`}>
                           <svg className={`w-3 h-3 ${/[A-Z]/.test(password) ? 'text-green-400' : 'text-secondary'}`} fill="currentColor" viewBox="0 0 20 20">
@@ -267,7 +267,7 @@ export default function RegisterPage(){
                               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0z" clipRule="evenodd" />
                             )}
                           </svg>
-                          <span>{t('UppercaseLetter')}</span>
+                          <span>{t('UppercaseLetter') as string}</span>
                         </div>
                         <div className={`flex items-center space-x-2 ${/[a-z]/.test(password) ? 'text-green-400' : 'text-secondary'}`}>
                           <svg className={`w-3 h-3 ${/[a-z]/.test(password) ? 'text-green-400' : 'text-secondary'}`} fill="currentColor" viewBox="0 0 20 20">
@@ -277,7 +277,7 @@ export default function RegisterPage(){
                               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0z" clipRule="evenodd" />
                             )}
                           </svg>
-                          <span>{t('LowercaseLetter')}</span>
+                          <span>{t('LowercaseLetter') as string}</span>
                         </div>
                         <div className={`flex items-center space-x-2 ${/[0-9]/.test(password) ? 'text-green-400' : 'text-secondary'}`}>
                           <svg className={`w-3 h-3 ${/[0-9]/.test(password) ? 'text-green-400' : 'text-secondary'}`} fill="currentColor" viewBox="0 0 20 20">
@@ -287,7 +287,7 @@ export default function RegisterPage(){
                               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0z" clipRule="evenodd" />
                             )}
                           </svg>
-                          <span>{t('PasswordNumber')}</span>
+                          <span>{t('PasswordNumber') as string}</span>
                         </div>
                       </div>
                     </div>
@@ -302,7 +302,7 @@ export default function RegisterPage(){
                   {loading ? (
                     <div className="flex items-center justify-center space-x-2">
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>{t('Processing')}</span>
+                      <span>{t('Processing') as string}</span>
                     </div>
                   ) : (
                     t('RegisterNow')
@@ -311,12 +311,12 @@ export default function RegisterPage(){
 
                 <div className="text-center pt-4 border-t border-dark">
                   <p className="text-secondary text-sm">
-                    {t('AlreadyHaveAccount')}{' '}
+                    {t('AlreadyHaveAccount') as string}{' '}
                     <Link
                       href={`/${locale}/login`}
                       className="inline-flex items-center text-accent-green hover:text-accent-green-light font-semibold transition-all duration-300 hover:underline group"
                     >
-                      {t('LoginHere')}
+                      {t('LoginHere') as string}
                       <svg className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
@@ -327,7 +327,7 @@ export default function RegisterPage(){
             </>
           ) : (
             <>
-              <h2 className="text-2xl font-bold text-primary mb-6 text-center">{t('EmailVerification')}</h2>
+              <h2 className="text-2xl font-bold text-primary mb-6 text-center">{t('EmailVerification') as string}</h2>
 
               {otpSuccess ? (
                 <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
@@ -338,8 +338,8 @@ export default function RegisterPage(){
                       </svg>
                     </div>
                     <div>
-                      <p className="text-green-400 font-medium">{t('VerificationSuccessful')}</p>
-                      <p className="text-green-300 text-sm">{t('RedirectingToHomePage')}</p>
+                      <p className="text-green-400 font-medium">{t('VerificationSuccessful') as string}</p>
+                      <p className="text-green-300 text-sm">{t('RedirectingToHomePage') as string}</p>
                     </div>
                   </div>
                 </div>
@@ -354,10 +354,10 @@ export default function RegisterPage(){
                         </svg>
                       </div>
                       <div className="flex-1">
-                        <p className="text-blue-400 font-medium mb-1">{t('DevelopmentMode')}</p>
-                        <p className="text-blue-300 text-xs mb-2">{t('OTPSentTo')} {email}</p>
+                        <p className="text-blue-400 font-medium mb-1">{t('DevelopmentMode') as string}</p>
+                        <p className="text-blue-300 text-xs mb-2">{t('OTPSentTo') as string} {email}</p>
                         <div className="bg-dark-tertiary p-3 rounded-lg">
-                          <p className="text-xs text-secondary mb-1">{t('YourOTPCode')}</p>
+                          <p className="text-xs text-secondary mb-1">{t('YourOTPCode') as string}</p>
                           <p className="text-2xl font-mono font-bold text-primary tracking-wider">{generatedOTP}</p>
                         </div>
                       </div>
@@ -379,7 +379,7 @@ export default function RegisterPage(){
 
                   <form onSubmit={handleOTPVerify} className="space-y-6">
                     <div className="space-y-2">
-                      <label className="block text-sm font-medium text-primary">{t('EnterOTP')}</label>
+                      <label className="block text-sm font-medium text-primary">{t('EnterOTP') as string}</label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                           <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -396,7 +396,7 @@ export default function RegisterPage(){
                           required
                         />
                       </div>
-                      <p className="text-xs text-secondary">{t('Enter6DigitCode')}</p>
+                      <p className="text-xs text-secondary">{t('Enter6DigitCode') as string}</p>
                     </div>
 
                     <button
@@ -407,7 +407,7 @@ export default function RegisterPage(){
                       {otpLoading ? (
                         <div className="flex items-center justify-center space-x-2">
                           <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          <span>{t('Verifying')}</span>
+                          <span>{t('Verifying') as string}</span>
                         </div>
                       ) : (
                         t('OTPVerification')
@@ -423,7 +423,7 @@ export default function RegisterPage(){
                       }}
                       className="w-full py-3 text-sm text-secondary hover:text-primary transition-colors duration-300"
                     >
-                      {t('BackToRegistration')}
+                      {t('BackToRegistration') as string}
                     </button>
                   </form>
                 </>
@@ -435,16 +435,16 @@ export default function RegisterPage(){
         {/* Additional Info */}
         <div className="mt-8 text-center">
           <p className="text-muted text-xs">
-            {t('ByRegisteringYouAgreeTo')}{' '}
+            {t('ByRegisteringYouAgreeTo') as string}{' '}
             <Link href="#" className="text-accent-green hover:text-accent-green-light font-medium transition-all duration-300 hover:underline inline-flex items-center group">
-              {t('TermsOfService')}
+              {t('TermsOfService') as string}
               <svg className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </Link>{' '}
-            {t('And')}{' '}
+            {t('And') as string}{' '}
             <Link href="#" className="text-accent-green hover:text-accent-green-light font-medium transition-all duration-300 hover:underline inline-flex items-center group">
-              {t('PrivacyPolicy')}
+              {t('PrivacyPolicy') as string}
               <svg className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>

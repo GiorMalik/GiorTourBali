@@ -70,12 +70,12 @@ export default function ForgotPasswordPage(){
             />
           </div>
           <h1 className="text-3xl font-bold text-gradient mb-2">GiorBaliTour</h1>
-          <p className="text-secondary">{t('ForgotPasswordDontWorry')}</p>
+          <p className="text-secondary">{t('ForgotPasswordDontWorry') as string}</p>
         </div>
 
         {/* Forgot Password Card */}
         <div className="card-modern p-8 border-gradient">
-          <h2 className="text-2xl font-bold text-primary mb-6 text-center">{t('ForgotPassword')}</h2>
+          <h2 className="text-2xl font-bold text-primary mb-6 text-center">{t('ForgotPassword') as string}</h2>
 
           {success && (
             <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
@@ -86,15 +86,15 @@ export default function ForgotPasswordPage(){
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <p className="text-blue-400 font-medium mb-1">{t('PasswordSuccessfullyChanged')}</p>
+                  <p className="text-blue-400 font-medium mb-1">{t('PasswordSuccessfullyChanged') as string}</p>
                   <p className="text-blue-300 text-sm mb-2">{t('OTPCodeSentTo').replace('{email}', email)}</p>
                   {generatedOTP && (
                     <div className="bg-dark-tertiary p-3 rounded-lg">
-                      <p className="text-xs text-secondary mb-1">{t('YourOTPCodeDevelopmentMode')}</p>
+                      <p className="text-xs text-secondary mb-1">{t('YourOTPCodeDevelopmentMode') as string}</p>
                       <p className="text-2xl font-mono font-bold text-primary tracking-wider">{generatedOTP}</p>
                     </div>
                   )}
-                  <p className="text-blue-300 text-xs">{t('EnterOTPCodeAndNewPassword')}</p>
+                  <p className="text-blue-300 text-xs">{t('EnterOTPCodeAndNewPassword') as string}</p>
                 </div>
               </div>
             </div>
@@ -116,7 +116,7 @@ export default function ForgotPasswordPage(){
           {!success && (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-primary">{t('EmailLabel')}</label>
+                <label className="block text-sm font-medium text-primary">{t('EmailLabel') as string}</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                     <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,7 +128,7 @@ export default function ForgotPasswordPage(){
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     className="w-full pl-12 pr-4 py-3 bg-dark-secondary border border-dark rounded-xl text-primary placeholder-secondary transition-all duration-300 focus:border-accent-green focus:outline-none focus:ring-2 focus:ring-accent-green/20"
-                    placeholder={t('EmailPlaceholder')}
+                    placeholder={t('EmailPlaceholder') as string}
                     required
                     disabled={loading}
                   />
@@ -143,7 +143,7 @@ export default function ForgotPasswordPage(){
                 {loading ? (
                   <div className="flex items-center justify-center space-x-2">
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>{t('SendingOTP')}</span>
+                    <span>{t('SendingOTP') as string}</span>
                   </div>
                 ) : (
                   t('SendOTP')
@@ -152,12 +152,12 @@ export default function ForgotPasswordPage(){
 
               <div className="text-center pt-4 border-t border-dark">
                 <p className="text-secondary text-sm">
-                  {t('RememberPassword')}{' '}
+                  {t('RememberPassword') as string}{' '}
                   <Link
                     href={`/${pathname.split('/')[1] || 'en'}/login`}
                     className="inline-flex items-center text-accent-green hover:text-accent-green-light font-semibold transition-all duration-300 hover:underline group"
                   >
-                    {t('LoginHere')}
+                    {t('LoginHere') as string}
                     <svg className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -173,19 +173,19 @@ export default function ForgotPasswordPage(){
               onClick={() => router.push(`/${pathname.split('/')[1] || 'en'}/reset-password?email=${encodeURIComponent(email)}`)}
               className="btn-modern w-full py-3 text-base font-semibold"
             >
-              {t('ContinueToResetPassword')}
+              {t('ContinueToResetPassword') as string}
             </button>
           )}
         </div>
 
         <div className="text-center pt-4 border-t border-dark">
           <p className="text-secondary text-sm">
-            {t('DontHaveAnAccount')}{' '}
+            {t('DontHaveAnAccount') as string}{' '}
             <Link
               href={`/${pathname.split('/')[1] || 'en'}/register`}
               className="inline-flex items-center text-accent-green hover:text-accent-green-light font-semibold transition-all duration-300 hover:underline group"
             >
-              {t('SignUpHere')}
+              {t('SignUpHere') as string}
               <svg className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>

@@ -124,10 +124,10 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold text-gradient mb-6">
-            {t('CustomerReviews')}
+            {t('CustomerReviews') as string}
           </h1>
           <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
-            {t('SeeWhatCustomers')}
+            {t('SeeWhatCustomers') as string}
           </p>
         </div>
 
@@ -166,10 +166,10 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
               </svg>
             </div>
             <h3 className="text-2xl font-bold text-primary mb-4">
-              {t('NoReviewsFound')}
+              {t('NoReviewsFound') as string}
             </h3>
             <p className="text-secondary max-w-md mx-auto">
-              {t('NoReviewsDescription')}
+              {t('NoReviewsDescription') as string}
             </p>
           </div>
         )}
