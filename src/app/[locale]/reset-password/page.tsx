@@ -1,16 +1,13 @@
 import { Suspense } from 'react';
 import ResetPasswordForm from './ResetPasswordForm';
-import { useTranslations } from 'next-intl';
 
 export default function ResetPasswordPage() {
-  const t = useTranslations();
-
   return (
     <div className="min-h-screen flex items-center justify-center p-4 hero-gradient">
       <Suspense fallback={
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="text-secondary mt-2">{t('Loading')}</p>
+          <p className="text-secondary mt-2">Loading...</p>
         </div>
       }>
         <ResetPasswordForm />
