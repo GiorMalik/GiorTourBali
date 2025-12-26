@@ -33,7 +33,7 @@ build/
 .env.production
 
 # Translation files - akan diikut sertakan via import
-messages/
+# messages/
 
 # Prisma files (schema sudah diikut via @prisma/client)
 prisma/
